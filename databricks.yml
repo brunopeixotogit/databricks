@@ -11,7 +11,7 @@ include:
 variables:
   user:
     description: "Usuário que está fazendo o deploy"
-    default: ${env.USER}
+    default: ${var.user}
 
 targets:
   dev:
