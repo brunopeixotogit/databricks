@@ -30,7 +30,7 @@ jobs:
 
       # 🔹 AUTENTICAÇÃO SIMPLES (PAT)
       - name: Deploy to Databricks (DEV)
-        run: databricks bundle deploy --target test
+        run: databricks bundle deploy --target dev
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}

@@ -33,25 +33,6 @@ targets:
       artifacts_dynamic_version: true
       name_prefix: "[DEV gitactions ${var.user}] "
 
-  test:
-    # The default target uses 'mode: development' to create a development copy.
-    # - Deployed resources get prefixed with '[dev my_user_name]'
-    # - Any job schedules and triggers are paused by default.
-    # See also https://docs.databricks.com/dev-tools/bundles/deployment-modes.html.
-    mode: production
-    default: true
-    workspace:
-      host: https://dbc-98593ae9-08e1.cloud.databricks.com
-      root_path: /Workspace/Shared/DEV/${bundle.name}/${bundle.target}
-
-    presets:
-      # Set dynamic_version: true on all artifacts of type "whl".
-      # This makes "bundle deploy" add a timestamp to wheel's version before uploading,
-      # new wheel takes over the previous installation even if actual wheel version is unchanged.
-      # See https://docs.databricks.com/aws/en/dev-tools/bundles/settings
-      artifacts_dynamic_version: true
-      name_prefix: "[DEV gitactions ${var.user}] "
-
   prod:
     mode: production
     workspace:
