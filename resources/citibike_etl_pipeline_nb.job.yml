@@ -1,0 +1,38 @@
+resources:
+  jobs:
+    citibike_etl_pipeline_nb:
+      name: citibike_etl_pipeline_nb
+      tasks:
+        - task_key: 01_bronze_citibike
+          notebook_task:
+            notebook_path: ../citibike_etl/notebooks/01_bronze/01_bronze_citibike.ipynb
+            source: WORKSPACE
+          min_retry_interval_millis: 900000
+          disable_auto_optimization: true
+        - task_key: 02_silver_citibike
+          depends_on:
+            - task_key: 01_bronze_citibike
+          notebook_task:
+            notebook_path: ../citibike_etl/notebooks/02_silver/02_silver_citibike.ipynb
+            source: WORKSPACE
+          min_retry_interval_millis: 900000
+          disable_auto_optimization: true
+        - task_key: 03_gold_citibike_daily_ride
+          depends_on:
+            - task_key: 02_silver_citibike
+          notebook_task:
+            notebook_path: ../citibike_etl/notebooks/03_gold/03_gold_citibike_daily_ride_summary.ipynb
+            source: WORKSPACE
+          min_retry_interval_millis: 900000
+          disable_auto_optimization: true
+        - task_key: 03_gold_citibike_daily_station
+          depends_on:
+            - task_key: 02_silver_citibike
+          notebook_task:
+            notebook_path: ../citibike_etl/notebooks/03_gold/03_gold_citibike_daily_station_performance.ipynb
+            source: WORKSPACE
+          min_retry_interval_millis: 900000
+          disable_auto_optimization: true
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
